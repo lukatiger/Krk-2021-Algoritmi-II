@@ -1,1 +1,1 @@
-# Krk-2021-Algoritmi-II
+# Krk 2021: Algoritmi II
