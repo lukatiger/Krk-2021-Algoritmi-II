@@ -1,0 +1,79 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 2;
+const int mod = 1e8 + 7;
+
+struct matrica {
+  vector<vector<int>> mat;
+  // konstruktor, ono sto se poziva na inicijalizicjai
+  matrica() {
+    mat = vector<vector<int>>(N, vector<int>(N));
+  }
+  void identiteta() {
+    for (int i = 0; i < N; ++i)
+      for (int j = 0; j < N; ++j) {
+        if (i == j) mat[i][j] = 1;
+        else mat[i][j] = 0;
+      }
+  }
+  matrica friend operator* (matrica a, matrica b) {
+    matrica c;
+    for (int i = 0; i < N; ++i) {
+      for (int j = 0; j < N; ++j) {
+        c.mat[i][j] = 0;
+        for (int k = 0; k < N; ++k) {
+          c.mat[i][j] += (long long) a.mat[i][k] * b.mat[k][j];
+          c.mat[i][j] %= mod;
+        }
+      }
+    }
+    return c;
+  }
+};
+
+int main() {
+
+  matrica PRIJELAZ;
+  PRIJELAZ.mat[0][1] = PRIJELAZ.mat[1][0] = PRIJELAZ.mat[1][1] = 1;
+
+  matrica pot[20];
+  pot[0] = PRIJELAZ;
+  for (int i = 1; i < 20; ++i) {
+    pot[i] = pot[i-1] * pot[i-1];
+  }
+
+  int t; scanf("%d", &t);
+  while (t --) {
+
+    matrica result;
+    result.identiteta();
+
+    int e; scanf("%d", &e);
+
+    for (int i = 0; i < 20; ++i) {
+      if ((1 << i) & e)
+        result = result * pot[i];
+    }
+
+    matrica desna;
+    desna.mat[1][0] = 1;
+    result = result * desna;
+
+    printf("%d\n", result.mat[0][0]);// << '\n';
+  }
+}
+
+
+//matrica mnozi(matrica a, matrica b) {
+//  matrica c;
+//  for (int i = 0; i < N; ++i) {
+//    for (int j = 0; j < N; ++j) {
+//      c.mat[i][j] = 0;
+//      for (int k = 0; k < N; ++k) {
+//        c.mat[i][j] += a.mat[i][k] * b.mat[k][j];
+//      }
+//    }
+//  }
+//  return c;
+//}

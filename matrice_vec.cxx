@@ -37,9 +37,12 @@ void ispis(matrix a) {
 vector <matrix> potencije; 
 
 /*
-potencije[ 2 ] == A^(2^2)
+potencije[ 0 ] == A^(2^0) == A^1 == A
+potencije[ 1 ] == A^(2^1) == A^2 == A*A
+potencije[ 2 ] == A^(2^2) == A*A*A*A
 potencije[ 3 ] == A^(2^3)
 
+Rekurzivna formula:
 potencije[ n ] = multiply(potencije[ n-1 ], potencije[ n-1 ])
 */
 
@@ -51,7 +54,7 @@ int main() {
 
     // matrix C = {{2, 3}, {0, 1}};
     // matrix D = {{1, 0}, {1, -1}, {2, 1}};
-    // multiply(C, D);
+    // multiply(C, D); ---> ovo javlja runtime error jer se assert trigera
     
     return 0;
 }
